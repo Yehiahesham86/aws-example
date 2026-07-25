@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -e
+
+
+aws glue create-crawler \
+    --name db-crawler \
+    --role 'glue-role' \
+    --database-name mydb \
+    --targets '{
+        "S3Targets": [
+            {
+                "Path": "s3://yh-glue-test-123/Allegations-of-Harassment-or-Bullying.csv"
+            }
+        ]
+    }'

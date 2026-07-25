@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+set -ex
+
+sudo apt update
+
+sudo apt-get install lsb-release curl gpg
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+sudo chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
+sudo apt-get update
+sudo apt-get install redis
+
+# Install AWS SAM CLI
+wget https://github.com/aws/aws-sam-cli/releases/latest/download/aws-sam-cli-linux-x86_64.zip
+
+unzip aws-sam-cli-linux-x86_64.zip -d sam-installation
+
+sudo ./sam-installation/install
+
+rm -rf sam-installation aws-sam-cli-linux-x86_64.zip
+
+
+sudo apt install -y \
+  tree \
+  gnupg \
+  curl 
+
+
+
+# Install Node.js
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+
+sudo apt install -y nodejs
+
+
+curl -fsSL https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+
+sudo apt update
+sudo apt install -y terraform
+
+python3 -m pip install -r requirements.txt
+
+aws configure set cli_auto_prompt on-partial
+
+sudo npm install -g aws-cdk
+
+curl -fsSL https://get.pulumi.com | sh
+
+sudo ln -sf $HOME/.pulumi/bin/pulumi /usr/local/bin/pulumi

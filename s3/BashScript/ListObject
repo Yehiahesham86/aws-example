@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Check if bucket name was provided
+if [ $# -eq 0 ]; then
+    echo "Pls Enter Bucket Name : ./ListObjects <bucket-name>"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+echo "Listing objects in bucket: $BUCKET_NAME"
+
+aws s3 ls s3://$BUCKET_NAME

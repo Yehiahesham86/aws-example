@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+
+INSTANCE_ID=$(aws connect create-instance \
+  --region ca-central-1 \
+  --identity-management-type CONNECT_MANAGED \
+  --instance-alias foundever-demo-1234 \
+  --inbound-calls-enabled \
+  --outbound-calls-enabled
+    --query Id \
+    --output text)
+
+echo $INSTANCE_ID
+
+
+aws connect describe-instance \
+    --instance-id $INSTANCE_ID

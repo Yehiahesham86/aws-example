@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+aws elasticache create-serverless-cache --serverless-cache-name my-test-cache --engine redis --major-engine-version 7
+
+
+# Check if bucket name was provided
+if [ $# -eq 0 ]; then
+    echo "Pls Enter serverless-cache Name : ./serverless serverless-cache Name"
+    exit 1
+fi
+
+serverless_cache_name=$1
+
+echo "Creating serverless cache: $serverless_cache_name"
+
+aws elasticache create-serverless-cache --serverless-cache-name $serverless_cache_name --engine redis --major-engine-version 7
+
+echo "Serverless cache $serverless_cache_name Created successfully."
+
+
+
+
+
+
+
+redis-cli my-test-cache-iqeulf.serverless.use1.cache.amazonaws.com:6379

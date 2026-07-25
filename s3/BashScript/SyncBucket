@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Check parameters
+if [ $# -lt 2 ]; then
+    echo "Usage: ./SyncBucket <local-folder> <bucket-name>"
+    exit 1
+fi
+
+LOCAL_FOLDER=$1
+BUCKET_NAME=$2
+
+echo "Syncing $LOCAL_FOLDER to bucket $BUCKET_NAME"
+
+aws s3 sync "$LOCAL_FOLDER" s3://$BUCKET_NAME
+
+echo "Sync completed successfully."

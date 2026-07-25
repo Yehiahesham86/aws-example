@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+echo "== Delete Stack"
+
+
+STACK_NAME="cfn-yehia-test"
+
+aws cloudformation delete-stack\
+  --stack-name $STACK_NAME 

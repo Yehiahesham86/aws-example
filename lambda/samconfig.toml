@@ -1,0 +1,12 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "sam-helloworld-lambda"
+resolve_s3 = true
+s3_prefix = "sam-helloworld-lambda"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["HelloWorldFunction=765332580934.dkr.ecr.us-east-1.amazonaws.com/samhelloworldlambdaed4167a3/helloworldfunction19d43fc4repo"]
+
+[default.global.parameters]
+region = "us-east-1"

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Check parameters
+if [ $# -lt 2 ]; then
+    echo "Usage: ./PutBucket <bucket-name> <file-path>"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+FILE_PATH=$2
+
+echo "Uploading $FILE_PATH to bucket $BUCKET_NAME"
+
+aws s3 cp "$FILE_PATH" s3://$BUCKET_NAME/
+
+echo "File uploaded successfully."

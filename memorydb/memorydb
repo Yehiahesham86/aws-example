@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e
+
+VPC_ID="vpc-0f26d23109fd9221f"
+
+SUBNET1="subnet-07716f4d7009be5b4"
+SUBNET2="subnet-05ddb002b27bd6f61"
+
+"""# Create Security Group
+SG_ID=$(aws ec2 create-security-group \
+    --group-name memorydb-sg \
+    --description "MemoryDB Security Group" \
+    --vpc-id "$VPC_ID" \
+    --query GroupId \
+    --output text)
+
+echo "Security Group: $SG_ID"
+
+# Allow Redis access from anywhere in the VPC
+aws ec2 authorize-security-group-ingress \
+    --group-id "$SG_ID" \
+    --protocol tcp \
+    --port 6379 \
+    --cidr 172.31.0.0/16"""
+
+# Create subnet group
+aws memorydb create-subnet-group \
+    --subnet-group-name memorydb-subnet-group \
+    --description "MemoryDB subnet group" \
+    --subnet-ids "$SUBNET1" "$SUBNET2"
+
+# Create MemoryDB cluster
+aws memorydb create-cluster \
+    --cluster-name my-memorydb \
+    --node-type db.t4g.small \
+    --engine-version 7.1 \
+    --acl-name open-access \
+    --subnet-group-name memorydb-subnet-group \
+    --security-group-ids "$SG_ID" \
+    --num-shards 1
+
+echo "MemoryDB creation started..."

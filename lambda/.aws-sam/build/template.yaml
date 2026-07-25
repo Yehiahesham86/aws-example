@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  HelloWorldFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageUri: helloworldfunction:python3.13-v1
+    Metadata:
+      DockerContext: /workspaces/aws-example/lambda/container
+      DockerTag: python3.13-v1
+      Dockerfile: Dockerfile
+      SamResourceId: HelloWorldFunction

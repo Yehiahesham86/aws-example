@@ -1,0 +1,7 @@
+boto3
+aws-cdk-lib
+constructs
+pulumi
+pulumi-aws
+poetry
+uv

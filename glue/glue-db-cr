@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+REGION="us-east-1"
+DATABASE_NAME="mydb"
+
+aws glue create-database \
+    --region "$REGION" \
+    --database-input "{
+        \"Name\": \"$DATABASE_NAME\",
+        \"Description\": \"test data Glue database\"
+    }"
+
+echo "Glue database '$DATABASE_NAME' created successfully."

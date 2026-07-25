@@ -1,0 +1,22 @@
+{
+  "name": "AWS Data Engineering",
+
+  "features": {
+    "ghcr.io/devcontainers/features/aws-cli:1": {},
+    "ghcr.io/devcontainers/features/git-lfs:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+      "ghcr.io/devcontainers/features/docker-in-docker:2": {"moby": false}
+  },
+
+  "postCreateCommand": "bash .devcontainer/setup",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "amazonwebservices.aws-toolkit-vscode"
+      ]
+    }
+  }
+}

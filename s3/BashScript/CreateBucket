@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Check if bucket name was provided
+if [ $# -eq 0 ]; then
+    echo "Pls Enter Bucket Name : ./CreateBucket <bucket-name>"
+    exit 1
+fi
+
+BUCKET_NAME=$1
+
+echo "Creating bucket: $BUCKET_NAME"
+
+aws s3api create-bucket --bucket $BUCKET_NAME
+
+aws s3api put-bucket-notification-configuration \
+  --bucket $BUCKET_NAME \
+  --notification-configuration '{
+    "EventBridgeConfiguration": {}
+  }'
+  
+echo "Bucket $BUCKET_NAME Created successfully."
